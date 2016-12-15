@@ -70,7 +70,7 @@ int main(void) {
                         } else if(rand() % 2) {
                             direction = rand() % 5;
                         } else {
-                            direction = current_dir;
+                            direction = 0;
                         }
                         SetMove(game, x, y, direction);
 
