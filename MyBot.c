@@ -31,7 +31,7 @@ int main(void) {
             for (y = 0 ; y < game.height ; y++) {
                 if (game.owner[x][y] == game.playertag) {
                     neutral_count = 0;
-                    int lowest_strength = 0;
+                    int lowest_strength = 255;
                     current_dir = 0;
                     // Attack a nearby neutral if we can
                     for (direction = 1; direction <= 5; direction++) {
