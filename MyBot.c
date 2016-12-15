@@ -4,7 +4,7 @@
 
 #include "hlt.h"
 
-#define BOT_NAME "Primis-V9"
+#define BOT_NAME "Primis-V10"
 
 int main(void) {
 
@@ -21,7 +21,7 @@ int main(void) {
     SendInit(BOT_NAME);
     int delay = 0;
     int count = 0;
-    int sentinel = 0;//rand() % 20 + 10;
+    int sentinel = rand() % 20;
     int current_dir;
     int large_direction = 1;
     while (1) {
@@ -58,7 +58,7 @@ int main(void) {
 
                     // Early game sentinel stuff
                     if (neutral_count == 0 && sentinel > 0) {
-                        direction = 1; // Move north
+                        direction = 0; // STILL
                         sentinel--;
                         SetMove(game, x, y, direction);
                     }
@@ -76,10 +76,10 @@ int main(void) {
                                     large_direction = 1;
                                 }
                             }
-                        } else if(rand() % 2) {
+                        } else if(game.strength[x][y] < 45) {
                             direction = 0;
                         } else {
-                            direction = rand() %2 + 2;
+                            direction = rand() %3;
                         }
                         SetMove(game, x, y, direction);
                     }
