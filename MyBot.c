@@ -4,7 +4,7 @@
 
 #include "hlt.h"
 
-#define BOT_NAME "Primis-V8"
+#define BOT_NAME "Primis-V9"
 
 int main(void) {
 
@@ -21,7 +21,7 @@ int main(void) {
     SendInit(BOT_NAME);
     int delay = 0;
     int count = 0;
-    int sentinel = rand() % 20;
+    int sentinel = 0;//rand() % 20 + 10;
     int current_dir;
     int large_direction = 1;
     while (1) {
@@ -47,7 +47,7 @@ int main(void) {
                         } else if ((target.owner != 0) && (target.owner != game.playertag)) {
                             if (delay > 1) {
                                 large_direction = direction;
-                                delay = 27;
+                                delay = 7;
                             }
                             SetMove(game, x, y, large_direction);
                         }
@@ -65,9 +65,9 @@ int main(void) {
 
 
                     // If there are zero neutrals, and we're past sentinel
-                    if (neutral_count == 0 && sentinel < 1) {
+                    else if (neutral_count == 0 && sentinel < 1) {
                         // Are we OP?
-                        if(game.strength[x][y] > (rand() % 30 + 100)) {
+                        if(game.strength[x][y] > 200) {
                             direction = large_direction;
                             if (delay > 0) { // Not in attack phase
                                 if (large_direction == 1) {
@@ -76,18 +76,10 @@ int main(void) {
                                     large_direction = 1;
                                 }
                             }
-                        } else if(rand() % 3) {
+                        } else if(rand() % 2) {
                             direction = 0;
                         } else {
-                            direction = 1;
-                        }
-                        target = GetSiteFromMovement(game, x, y, direction);
-                        if (((target.strength + game.strength[x][y]) > 270) && (direction > 0)) {
-                            // Wasting too much, go somewhere else
-                            direction += 1;
-                            if (direction > 4) {
-                                direction = 1;
-                            }
+                            direction = rand() %2 + 2;
                         }
                         SetMove(game, x, y, direction);
                     }
