@@ -4,7 +4,7 @@
 
 #include "hlt.h"
 
-#define BOT_NAME "Primis-V3"
+#define BOT_NAME "Primis-V5"
 
 int main(void) {
 
@@ -19,7 +19,8 @@ int main(void) {
     // Start the game
     game = GetInit();
     SendInit(BOT_NAME);
-    int sentinel = rand() % 10;
+    int count = 0;
+    int sentinel = rand() % 15;
     int current_dir;
     int large_direction=1;
     while (1) {
@@ -30,24 +31,24 @@ int main(void) {
             for (y = 0 ; y < game.height ; y++) {
                 if (game.owner[x][y] == game.playertag) {
                     neutral_count = 0;
-                    int lowest_strength = 0;
-                    current_dir=0;
+                    int lowest_strength = 255;
+                    current_dir = 0;
                     // Attack a nearby neutral if we can
                     for (direction = 1; direction <= 5; direction++) {
                         target = GetSiteFromMovement(game, x, y, direction);
                         if (target.owner == 0) {
                             neutral_count++;
                             if (target.strength < game.strength[x][y]) {
-                                SetMove(game, x, y, direction);
-                                break;
-                            } else {
-                                if(target.strength < lowest_strength) {
+                                if (target.strength < lowest_strength) {
                                     current_dir = direction;
-                                    lowest_strength = target.strength;
                                 }
                             }
                         }
                     }
+                    if (current_dir > 0) {
+                        SetMove(game, x, y, current_dir);
+                    }
+
                     // Early game sentinel stuff
                     if (neutral_count == 0 && sentinel > 0) {
                         direction = 1; // Move north
@@ -69,7 +70,7 @@ int main(void) {
                         } else if(rand() % 2) {
                             direction = rand() % 5;
                         } else {
-                            direction = current_dir;
+                            direction = 0;
                         }
                         SetMove(game, x, y, direction);
 
