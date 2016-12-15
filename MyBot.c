@@ -4,7 +4,7 @@
 
 #include "hlt.h"
 
-#define BOT_NAME "Primis-V7"
+#define BOT_NAME "Primis-V8"
 
 int main(void) {
 
@@ -50,7 +50,6 @@ int main(void) {
                                 delay = 27;
                             }
                             SetMove(game, x, y, large_direction);
-                            break;
                         }
                     }
                     if (current_dir > 0) {
@@ -64,6 +63,7 @@ int main(void) {
                         SetMove(game, x, y, direction);
                     }
 
+
                     // If there are zero neutrals, and we're past sentinel
                     if (neutral_count == 0 && sentinel < 1) {
                         // Are we OP?
@@ -76,10 +76,10 @@ int main(void) {
                                     large_direction = 1;
                                 }
                             }
-                        } else if(rand() % 2) {
-                            direction = rand() % 5;
-                        } else {
+                        } else if(rand() % 3) {
                             direction = 0;
+                        } else {
+                            direction = 1;
                         }
                         target = GetSiteFromMovement(game, x, y, direction);
                         if (((target.strength + game.strength[x][y]) > 270) && (direction > 0)) {
@@ -90,7 +90,6 @@ int main(void) {
                             }
                         }
                         SetMove(game, x, y, direction);
-
                     }
                 }
             }
