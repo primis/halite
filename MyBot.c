@@ -47,7 +47,7 @@ int main(void) {
                         } else if ((target.owner != 0) && (target.owner != game.playertag)) {
                             if (delay > 1) {
                                 large_direction = direction;
-                                delay = 7;
+                                // delay = 7;
                             }
                             SetMove(game, x, y, large_direction);
                         }
@@ -71,7 +71,9 @@ int main(void) {
                             direction = large_direction;
                             if (delay > 0) { // Not in attack phase
                                 if (large_direction == 1) {
-                                    large_direction = 2;
+                                    if ((rand() % 4) == 1) {
+                                        large_direction = 2;
+                                    }
                                 } else {
                                     large_direction = 1;
                                 }
@@ -86,7 +88,7 @@ int main(void) {
                 }
             }
         }
-        delay--;
+       // delay--;
         SendFrame(game);
     }
     return 0;
